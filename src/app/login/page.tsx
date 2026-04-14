@@ -1,15 +1,21 @@
 import { loginAction } from "./actions";
-import { Input } from "@/components/forms";
+import { Button, Input } from "@/components/forms";
+import { PageShell, InfoCard } from "@/components/layout";
 
 export default function LoginPage() {
   return (
-    <main>
-      <h1>Login</h1>
-      <form action={loginAction}>
-        <Input label="Work email" name="email" type="email" />
-        <Input label="Password" name="password" type="password" />
-        <button type="submit">Login</button>
-      </form>
-    </main>
+    <PageShell
+      eyebrow="Account Access"
+      title="Login"
+      description="Authenticate with your work credentials to enter the DemandFirst workspace."
+    >
+      <InfoCard>
+        <form action={loginAction} className="df-form">
+          <Input label="Work email" name="email" type="email" />
+          <Input label="Password" name="password" type="password" />
+          <Button>Login</Button>
+        </form>
+      </InfoCard>
+    </PageShell>
   );
 }
