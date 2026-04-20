@@ -1,0 +1,218 @@
+:root {
+  --df-bg: #f3efe7;
+  --df-surface: #fffdf9;
+  --df-surface-strong: #f8f2e8;
+  --df-text: #163636;
+  --df-text-muted: #4d6464;
+  --df-heading: #102a2a;
+  --df-primary: #164a4d;
+  --df-primary-hover: #1d5b5f;
+  --df-primary-soft: #dbe8e5;
+  --df-border: #d9d1c5;
+  --df-focus: #b68553;
+  --df-accent: #b68553;
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  --shadow-soft: 0 10px 30px rgba(16, 42, 42, 0.07);
+  --shadow-focus: 0 0 0 3px color-mix(in srgb, var(--df-focus) 30%, transparent);
+
+  --font-sans: Inter, "Avenir Next", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: radial-gradient(circle at top, #f8f4ed, var(--df-bg) 50%);
+  color: var(--df-text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--df-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  color: var(--df-heading);
+  letter-spacing: -0.015em;
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem);
+  line-height: 1.15;
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 1.1rem + 1vw, 1.8rem);
+  line-height: 1.2;
+}
+
+p {
+  margin: 0;
+  color: var(--df-text-muted);
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+li {
+  margin-block: var(--space-2);
+}
+
+.df-app-shell {
+  min-height: 100dvh;
+  padding: var(--space-12) var(--space-4);
+}
+
+.df-page {
+  width: min(820px, 100%);
+  margin: 0 auto;
+  padding: var(--space-10);
+  background: var(--df-surface);
+  border: 1px solid color-mix(in srgb, var(--df-border) 72%, white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.df-stack {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.df-section {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.df-overline {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: color-mix(in srgb, var(--df-primary) 80%, black);
+  font-weight: 600;
+}
+
+.df-form {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.df-field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.df-label {
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--df-text) 85%, black);
+}
+
+.df-input,
+.df-select {
+  width: 100%;
+  border: 1px solid var(--df-border);
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 0.72rem 0.85rem;
+  color: var(--df-text);
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+  font: inherit;
+}
+
+.df-input::placeholder {
+  color: color-mix(in srgb, var(--df-text-muted) 70%, white);
+}
+
+.df-input:focus,
+.df-select:focus {
+  outline: none;
+  border-color: var(--df-focus);
+  box-shadow: var(--shadow-focus);
+}
+
+.df-button {
+  border: none;
+  border-radius: 999px;
+  padding: 0.72rem 1.05rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background-color 120ms ease, transform 120ms ease;
+}
+
+.df-button:active {
+  transform: translateY(1px);
+}
+
+.df-button--primary {
+  color: #fff;
+  background: var(--df-primary);
+}
+
+.df-button--primary:hover {
+  background: var(--df-primary-hover);
+}
+
+.df-button--secondary {
+  color: var(--df-primary);
+  background: var(--df-primary-soft);
+}
+
+.df-card {
+  background: linear-gradient(170deg, #fffdfa, #fbf6ee);
+  border: 1px solid color-mix(in srgb, var(--df-border) 80%, white);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+}
+
+.df-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--df-accent) 18%, white);
+  color: color-mix(in srgb, var(--df-accent) 82%, #3a2a18);
+}

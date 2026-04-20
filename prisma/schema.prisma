@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CompanyStatus {
+  draft
+  pending_review
+  active
+  suspended
+  rejected
+}
+
+enum CompanyMemberRole {
+  owner
+  admin
+  buyer
+  supplier
+  expert
+}
+
+enum OnboardingRole {
+  buyer
+  supplier
+  expert
+}
+
+model User {
+  id              String             @id @default(cuid())
+  email           String             @unique
+  passwordHash    String
+  fullName        String?
+  onboardingRole  OnboardingRole?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  sessions        Session[]
+  memberships     Membership[]
+  onboardingSteps OnboardingProgress[]
+}
+
+model Session {
+  id         String   @id @default(cuid())
+  tokenHash  String   @unique
+  userId     String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Company {
+  id                String       @id @default(cuid())
+  internalCompanyId String       @unique
+  legalName         String
+  countryCode       String
+  status            CompanyStatus @default(draft)
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  memberships       Membership[]
+}
+
+model Membership {
+  id         String            @id @default(cuid())
+  userId     String
+  companyId  String
+  role       CompanyMemberRole
+  isPrimary  Boolean           @default(false)
+  createdAt  DateTime          @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, companyId])
+  @@index([companyId])
+}
+
+model OnboardingProgress {
+  id              String         @id @default(cuid())
+  userId          String
+  role            OnboardingRole
+  companyId       String?
+  profileComplete Boolean        @default(false)
+  companyComplete Boolean        @default(false)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, role])
+  @@index([companyId])
+}
